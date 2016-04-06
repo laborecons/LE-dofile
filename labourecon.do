@@ -56,21 +56,31 @@ count if sqrt((Parislat-latgrad)^2+(Parislong-longrad)^2)*6371 < 6
 gen distanceparis = sqrt((Parislat-latgrad)^2+(Parislong-longrad)^2)*6371
 
 // Regroupement des offres 0,10 et 20km
+// Regroupement des offres 0,10 et 20km
 
 egen v0=sum(v) if distanceparis<=1
 replace v0=0 if v0==.
-egen v10=sum(v) if distanceparis<=10 & distanceparis>1
+egen v5=sum(v) if distanceparis<=5 & distanceparis>1
+replace v5=0 if v5==.
+egen v10=sum(v) if distanceparis<=10 & distanceparis>5
 replace v10=0 if v10==.
 egen v20=sum(v) if distanceparis<=20 & distanceparis>10
 replace v20=0 if v20==.
+egen v35=sum(v) if distanceparis<=35 & distanceparis>20
+replace v35=0 if v35==.
 
-*Mme chose pour le nombre de ch™meurs
+*Même chose pour le nombre de chômeurs
+
 egen u0=sum(u) if distanceparis<=1
 replace u0=0 if u0==.
-egen u10=sum(u) if distanceparis<=10 & distanceparis>1
+egen u5=sum(u) if distanceparis<=5 & distanceparis>1
+replace u5=0 if u5==.
+egen u10=sum(u) if distanceparis<=10 & distanceparis>5
 replace u10=0 if u10==.
 egen u20=sum(u) if distanceparis<=20 & distanceparis>10
 replace u20=0 if u20==.
+egen u35=sum(u) if distanceparis<=35 & distanceparis>20
+replace u35=0 if u35==.
 
 
 //Graph distance des offres par rapport ˆ Paris
