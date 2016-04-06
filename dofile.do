@@ -99,7 +99,7 @@ save "iris.dta", replace
 
 *--------------------------------------
 clear
-import excel using "/Users/sandrafronteau/Documents/labour/data/masterfile.xlsx", firstrow
+import excel using "masterfile.xlsx", firstrow
 drop wkt_geom
 drop Tauxchom
 rename Couchejointe_count v
@@ -118,7 +118,7 @@ sort city-MarketTightness
 
 by city : egen v2 = sum(v)
 
-save "/Users/sandrafronteau/Documents/labour/data/masterfile.dta"
+save "masterfile.dta"
 
 
 
