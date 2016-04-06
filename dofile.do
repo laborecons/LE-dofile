@@ -76,26 +76,6 @@ help egen
 
 
 
-sort ident12
-
-save "fpr_menage_2012.dta", replace
-
-use "fpr_mrf12e12t4.dta"
-
-sort ident12
-
-save "fpr_mrf12e12t4.dta", replace
-
-
-merge ident12 using "fpr_mrf12e12t4.dta" "fpr_menage_2012.dta"
-
-save "fpr-menageapp.dta"
-
-help new
-
-browse
-describe
-
 
 
 // Market Tightness
