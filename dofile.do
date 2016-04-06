@@ -29,9 +29,9 @@ count if sqrt((0.8529244-latgrad)^2+(0.0406976-longrad)^2)*6371 < 6
 
 gen distanceparis = sqrt((0.8529244-latgrad)^2+(0.0406976-longrad)^2)*6371
 
-* A faire - graph distance des offres par rapport à Paris
-twoway scatter distanceparis
- sqrt((0.8529244-latgrad)^2+(0.0406976-longrad)^2)*6371
+* Graph distance des offres par rapport à Paris
+twoway scatter v2 distanceparis if distanceparis<100, ytitle(Number of job offers) xtitle(Distance to Paris)
+
 
 // Regroupement des offres 0,10 et 20km
 
