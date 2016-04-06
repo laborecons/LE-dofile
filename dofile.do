@@ -87,5 +87,6 @@ rename L act1564
 rename M act1524
 rename N chom1564
 rename O chom1524
-
+rename NOM_COM city
+drop wkt_geom
 
