@@ -7,14 +7,18 @@ use "Job_Offers_Ile-de-France.dta"
 *insheet excel  "Coordonnées + Data IRIS.xlsx"
 
 // Nettoyage 
-
+decode city, generate(city2)
+drop city
+rename city2 city
+drop if city=="0"
 drop if longitude==0
 drop if latitude==0
-drop if latitude==.
 drop if longitude==.
+drop if latitude==.
 drop date
 drop Description_
-*drop if city==0
+
+
 count
 
 save "Job_Offers_Ile-de-France.dta",replace
