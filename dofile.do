@@ -21,8 +21,8 @@ save "Job_Offers_Ile-de-France.dta",replace
 
 // Gen variables en grad
 
-generate latgrad = latitude*3.1415/180
-generate longrad = longitude*3.1415/180
+gen Parislat = 48.87041*3.1415/180
+gen Parislong= 2.331867*3.1415/180
 
 // Coor centre de Paris
 
