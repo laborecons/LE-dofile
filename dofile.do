@@ -75,3 +75,13 @@ help egen
 
 
 // Market Tightness
+clear
+import excel using "/Users/sandrafronteau/Documents/labour/data/iris.xlsx", firstrow
+rename INSEEIRISbaseicactiviteresi pop1564
+rename K pop1524
+rename L act1564
+rename M act1524
+rename N chom1564
+rename O chom1524
+
+
