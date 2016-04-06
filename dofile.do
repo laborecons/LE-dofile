@@ -24,10 +24,16 @@ save "Job_Offers_Ile-de-France.dta",replace
 generate latgrad = latitude*3.1415/180
 generate longrad = longitude*3.1415/180
 
-// Distance des offres par rapport à Paris
-count if sqrt((0.8529244-latgrad)^2+(0.0406976-longrad)^2)*6371 < 6
+// Coor centre de Paris
 
-gen distanceparis = sqrt((0.8529244-latgrad)^2+(0.0406976-longrad)^2)*6371
+gen Parislat = 48.856614*3.1415/180
+gen Parislong= 2.3522219000000177*3.1415/180
+
+// Distance des offres par rapport à Paris
+count if sqrt((Parislat-latgrad)^2+(Parislong-longrad)^2)*6371 < 6
+
+gen distanceparis = sqrt((Parislat-latgrad)^2+(Parislong-longrad)^2)*6371
+
 
 * Graph distance des offres par rapport à Paris
 twoway scatter v2 distanceparis if distanceparis<100, ytitle(Number of job offers) xtitle(Distance to Paris)
@@ -66,28 +72,6 @@ help string
 
 help egen
 
-
-
-sort ident12
-
-save "fpr_menage_2012.dta", replace
-
-use "fpr_mrf12e12t4.dta"
-
-sort ident12
-
-save "fpr_mrf12e12t4.dta", replace
-
-
-merge ident12 using "fpr_mrf12e12t4.dta" "fpr_menage_2012.dta"
-
-save "fpr-menageapp.dta"
-
-help new
-
-browse
-describe
-/*
 
 
 // Market Tightness
