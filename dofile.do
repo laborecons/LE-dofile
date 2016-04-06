@@ -7,17 +7,22 @@ use "Job_Offers_Ile-de-France.dta"
 *insheet excel  "Coordonnées + Data IRIS.xlsx"
 
 // Nettoyage 
-decode city, generate(city2)
-drop city
-rename city2 city
-drop if city=="0"
+global var_all "Sector city ID_Job Jobtitle Company Jobtype Description_"
+foreach i of global var_all {
+decode `i', generate(`i'2)
+drop `i'
+rename `i'2 `i'
+}
 drop if longitude==0
 drop if latitude==0
 drop if longitude==.
 drop if latitude==.
 drop date
 drop Description_
+drop if city=="0"
 
+order city Sector Jobtitle Jobtype Company
+sort city-ID_Job
 
 count
 
@@ -66,17 +71,6 @@ by city : egen v2 = sum(v1)
 bysort distanceparis : egen v3 = sum(v1)
 twoway scatter v3 distanceparis if distanceparis<100, ytitle(Number of job offers) xtitle(Distance to Paris)
 
-*/
-sqrt (2)
-display sqrt(2)
-help sqrt
-help count 
-help type 
-help string 
-
-help egen
-
-
 
 // Market Tightness
 clear
@@ -89,4 +83,11 @@ rename N chom1564
 rename O chom1524
 rename NOM_COM city
 drop wkt_geom
+
+gen departement = substr(DEPCOM, 1,2)
+keep if departement=="75" | departement=="95" | departement=="94" | departement=="93" | departement=="92" | departement=="91" | departement=="78" | departement=="77"
+count
+
+save "iris.dta", replace
+
 
