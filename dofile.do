@@ -38,7 +38,7 @@ twoway scatter v2 distanceparis if distanceparis<100 & distanceparis>10, ytitle(
 
 display sqrt(((48.856-50.63)*3.14/180)^2+((2.350-3.063)*3.14/180)^2)*6371
 
-* A faire - Nombre d'observation par ville
+//Nombre d'observation par ville
 order city
 sort city-v1
 gen v1=1
@@ -52,19 +52,11 @@ drop v4
 */
 by city : egen v2 = sum(v1)
 
-* A faire - Nombre d'observation à 10km, 20km  
+//Nombre d'observations à 10km, 20km  
+bysort distanceparis : egen v3 = sum(v1)
+twoway scatter v3 distanceparis if distanceparis<100, ytitle(Number of job offers) xtitle(Distance to Paris)
 
-/*
-count if latgrad =0.8523195
-
-foreach i in latgrad, count if (latgrad i =latgrad)
-
-foreach i in latgrad, sqrt((latgrad i-latgrad)^2+(longrad i-longrad)^2)*6371 < 10
 */
-
-
-generate V0 = count if (latgrad_n=latgrad)
-
 sqrt (2)
 display sqrt(2)
 help sqrt
@@ -76,6 +68,26 @@ help egen
 
 
 
+sort ident12
+
+save "fpr_menage_2012.dta", replace
+
+use "fpr_mrf12e12t4.dta"
+
+sort ident12
+
+save "fpr_mrf12e12t4.dta", replace
+
+
+merge ident12 using "fpr_mrf12e12t4.dta" "fpr_menage_2012.dta"
+
+save "fpr-menageapp.dta"
+
+help new
+
+browse
+describe
+/*
 
 
 // Market Tightness
