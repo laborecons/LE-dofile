@@ -97,4 +97,29 @@ bysort city: egen u=sum(chom1564)
 
 save "iris.dta", replace
 
+*--------------------------------------
+clear
+import excel using "/Users/sandrafronteau/Documents/labour/data/masterfile.xlsx", firstrow
+drop wkt_geom
+drop Tauxchom
+rename Couchejointe_count v
+rename O IDF_DEP
+rename P IDF_LIBCOM
+rename Q POP1564
+rename R POP1524
+rename S ACT1564
+rename T ACT1524
+rename U CHOM1564
+rename V CHOM1524
+rename NOM_COM city
+
+order city NOM_IRIS
+sort city-MarketTightness
+
+by city : egen v2 = sum(v)
+
+save "/Users/sandrafronteau/Documents/labour/data/masterfile.dta"
+
+
+
 
