@@ -50,7 +50,7 @@ generate longrad = longitude*3.1415/180
 gen Parislat = 48.856614*3.1415/180
 gen Parislong= 2.3522219000000177*3.1415/180
 
-// Distance des offres par rapport à Paris
+// Distance des offres par rapport ÀÜ Paris
 count if sqrt((Parislat-latgrad)^2+(Parislong-longrad)^2)*6371 < 6
 
 gen distanceparis = sqrt((Parislat-latgrad)^2+(Parislong-longrad)^2)*6371
@@ -64,7 +64,7 @@ replace v10=0 if v10==.
 egen v20=sum(v) if distanceparis<=20 & distanceparis>10
 replace v20=0 if v20==.
 
-*Même chose pour le nombre de chômeurs
+*M¬ême chose pour le nombre de ch‚Ñ¢meurs
 egen u0=sum(u) if distanceparis<=1
 replace u0=0 if u0==.
 egen u10=sum(u) if distanceparis<=10 & distanceparis>1
@@ -73,10 +73,15 @@ egen u20=sum(u) if distanceparis<=20 & distanceparis>10
 replace u20=0 if u20==.
 
 
-//Graph distance des offres par rapport à Paris
+//Graph distance des offres par rapport ÀÜ Paris
 
 twoway scatter v distanceparis, ytitle(Number of job offers) xtitle(Distance to Paris)
 twoway scatter v distanceparis if distanceparis<110 & v<700, ytitle(Number of job offers) xtitle(Distance to Paris)
+
+//Graphique distance market tightness par rapport √† Paris
+twoway scatter MarketTightness distanceparis, ytitle(Market Tightness) xtitle(Distance to Paris) title(Market tightness and Distance to Paris)
+twoway scatter MarketTightness distanceparis if MarketTightness <8, xlabel(0(50)135) ytitle(Market Tightness) xtitle(Distance to Paris) title(Market tightness and Distance to Paris)
+
 
 save "masterfile.dta", replace
 
