@@ -50,6 +50,8 @@ twoway scatter v2 distanceparis if distanceparis<100 & v2<1500, ytitle(Number of
 twoway scatter v2 distanceparis if distanceparis<100 & distanceparis>10, ytitle(Number of job offers) xtitle(Distance to Paris)
 
 // Regroupement des offres 0,10 et 20km
+egen v0=sum(v1) if distanceparis<=0.0002835
+replace v0=0 if v0==.
 egen v10=sum(v1) if distanceparis<=10
 replace v10=0 if v10==.
 egen v20=sum(v1) if distanceparis<=20
