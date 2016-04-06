@@ -93,6 +93,7 @@ drop wkt_geom
 gen departement = substr(DEPCOM, 1,2)
 keep if departement=="75" | departement=="95" | departement=="94" | departement=="93" | departement=="92" | departement=="91" | departement=="78" | departement=="77"
 count
+bysort city: egen u=sum(chom1564)
 
 save "iris.dta", replace
 
