@@ -42,7 +42,11 @@ save "masterfile3.dta", replace
 *-------------------------------------------------------------------------------
 
 use "masterfile3.dta", clear
-
+//How many vacancies and job seekers in total?
+egen nbv=sum(v)
+*108631
+egen nbu=sum(u)
+*729827
 
 // Gen variables en grad
 
@@ -60,7 +64,7 @@ gen Parislat = 48.869194*3.1415/180
 gen Parislong= 2.331164*3.1415/180
 *Coordinates for Paris 2e arrondissement where there is a concentration of job vacancies v (31540)
 
-// Distance des offres par rapport à Paris
+// Distance des offres par rapport ÀÜ Paris
 count if sqrt((Parislat-latgrad)^2+(Parislong-longrad)^2)*6371 < 6
 
 gen distanceparis = sqrt((Parislat-latgrad)^2+(Parislong-longrad)^2)*6371
@@ -78,7 +82,7 @@ replace v20=0 if v20==.
 egen v35=sum(v) if distanceparis<=35 & distanceparis>20
 replace v35=0 if v35==.
 
-*Même chose pour le nombre de chômeurs
+*M¬ême chose pour le nombre de ch‚Ñ¢meurs
 
 egen u0=sum(u) if distanceparis<=1
 replace u0=0 if u0==.
@@ -92,7 +96,7 @@ egen u35=sum(u) if distanceparis<=35 & distanceparis>20
 replace u35=0 if u35==.
 
 
-//Graph distance des offres par rapport à Paris
+//Graph distance des offres par rapport ÀÜ Paris
 *IRIS
 twoway scatter v distanceparis, ytitle(Number of job offers) xtitle(Distance to Paris) title(Job offers and distance to Paris)
 twoway scatter v distanceparis if distanceparis<110 & v<700 & v>0,xlabel(0(25)110) ylabel(0(200)700) ytitle(Number of job offers) xtitle(Distance to Paris) title(Job offers and distance to Paris)
@@ -101,13 +105,13 @@ twoway scatter v distanceparis if distanceparis<110 & v<700 & v>0,xlabel(0(25)11
 twoway scatter v2 distanceparis, ytitle(Number of job offers) xtitle(Distance to Paris) title(Job offers and distance to Paris)
 twoway scatter v2 distanceparis if distanceparis<110 & v2<700 & v2>0,xlabel(0(25)110) ylabel(0(200)700) ytitle(Number of job offers) xtitle(Distance to Paris) title(Job offers and distance to Paris)
 
-//Graph distance des job seekers par rapport à Paris
+//Graph distance des job seekers par rapport ÀÜ Paris
 twoway scatter u distanceparis ,xlabel(0(25)110) ytitle(Number of job seekers) xtitle(Distance to Paris) title(Job seekers and distance to Paris)
 
 //Graph job seekers population
 twoway scatter u  POP1564, ytitle(Number of job seekers) xtitle(Population 15-64) title(Job seekers and population)
 
-//Graphique distance market tightness par rapport à Paris
+//Graphique distance market tightness par rapport ÀÜ Paris
 twoway scatter MATIRIS distanceparis, ytitle(Market Tightness) xtitle(Distance to Paris) title(Market tightness and Distance to Paris)
 twoway scatter MATIRIS distanceparis if MATIRIS <8 & MATIRIS>0, xlabel(0(25)135) ytitle(Market Tightness) xtitle(Distance to Paris) title(Market tightness and Distance to Paris)
 twoway scatter MATIRIS distanceparis if MATIRIS <4 & MATIRIS>0, xlabel(0(25)135) ytitle(Market Tightness) xtitle(Distance to Paris) title(Market tightness and Distance to Paris)
